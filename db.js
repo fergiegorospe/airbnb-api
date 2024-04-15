@@ -6,7 +6,7 @@ const db = new Pool({
   ssl: {
     rejectUnauthorized: false
   },
-  connectionString: DBURL
+  connectionString: process.env.DATABASE_CONNECTION
 })
 
 export default db
