@@ -35,7 +35,7 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { rows } = await db.query(`
-      SELECT * FROM users WHERE email = '${req.body.email}'
+      SELECT * FROM public.users WHERE email = '${req.body.email}'
     `)
 
     if (rows.length === 0) {
