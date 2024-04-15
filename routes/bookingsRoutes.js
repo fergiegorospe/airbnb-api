@@ -26,7 +26,7 @@ router.get('/bookings/:bookingID', async (req, res) => {
     if (!token) {
       throw new Error('No token provided')
     } else {
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
       if (!decodedToken) {
         throw new Error('Invalid authentication token')
       }
@@ -51,7 +51,7 @@ router.post('/bookings', async (req, res) => {
     if (!token) {
       throw new Error('No token provided')
     } else {
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
       if (!decodedToken) {
         throw new Error('Invalid authentication token')
       }
@@ -83,7 +83,7 @@ router.delete('/bookings/:bookingId', async (req, res) => {
     if (!token) {
       throw new Error('No token provided')
     } else {
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
       if (!decodedToken) {
         throw new Error('Invalid authentication token')
       }

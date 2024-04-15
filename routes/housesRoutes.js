@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import db from '../db.js'
 import jwt from 'jsonwebtoken'
-import { jwtSecret } from '../secrets.js'
 
 const router = Router()
 
@@ -12,7 +11,7 @@ router.post('/houses', async (req, res) => {
     if (!token) {
       throw new Error('No token provided')
     } else {
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
       if (!decodedToken) {
         throw new Error('Invalid authentication token')
       }
@@ -78,7 +77,7 @@ router.patch('/houses/:houseId', async (req, res) => {
     if (!token) {
       throw new Error('No token provided')
     } else {
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
       if (!decodedToken) {
         throw new Error('Invalid authentication token')
       }
@@ -125,7 +124,7 @@ router.delete('/houses/:houseId', async (req, res) => {
     if (!token) {
       throw new Error('No token provided')
     } else {
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET)
       if (!decodedToken) {
         throw new Error('Invalid authentication token')
       }

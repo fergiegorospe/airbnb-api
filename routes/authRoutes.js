@@ -2,7 +2,6 @@ import db from '../db.js'
 import express from 'express'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { jwtSecret } from '../secrets.js'
 const router = express.Router()
 
 router.post('/signup', async (req, res) => {
@@ -24,7 +23,7 @@ router.post('/signup', async (req, res) => {
     const newUserId = readNewUser.rows[0].user_id
     const newUserEmail = readNewUser.rows[0].email
     const payload = { user_id: newUserId, email: newUserEmail }
-    const token = jwt.sign(payload, jwtSecret)
+    const token = jwt.sign(payload, process.env.JWT_SECRET)
     res.cookie('jwt', token)
     res.json(insertion.rows[0])
   } catch (err) {
@@ -54,7 +53,7 @@ router.post('/login', async (req, res) => {
         user_id: '${req.body.user_id}',
         email: '${req.body.email}'
       }
-      const token = jwt.sign(payload, jwtSecret)
+      const token = jwt.sign(payload, process.env.JWT_SECRET)
       res.cookie('jwt', token)
       console.log(token)
       res.json('Logged in.')
